@@ -47,7 +47,7 @@ int main()
     strobePin(LED_BANK, LED, STARTUP_BLINKS, BLINK_FAST);
 
 	/* wait for host to upload program or halt bootloader */
-	bool no_user_jump = (!checkUserCode(USER_CODE_FLASH0X8005000) && !checkUserCode(USER_CODE_FLASH0X8002000)); // || readPin(BUTTON_BANK,BUTTON);
+	bool no_user_jump = (!checkUserCode(USER_CODE_FLASH0X8005000) && !checkUserCode(USER_CODE_FLASH0X8002000)) || readPin(BUTTON_BANK,BUTTON);
 	int delay_count = 0;
 
     while ((delay_count++ < BOOTLOADER_WAIT) || no_user_jump)
@@ -61,8 +61,11 @@ int main()
         }
     }
 
-
-	if (checkUserCode(USER_CODE_FLASH0X8002000)) 
+	if (checkUserCode(USER_CODE_RAM)) 
+	{
+		jumpToUser(USER_CODE_RAM);
+	} 
+	else if (checkUserCode(USER_CODE_FLASH0X8002000)) 
 	{
 		jumpToUser(USER_CODE_FLASH0X8002000);
 	} 

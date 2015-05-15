@@ -87,12 +87,12 @@ bool dfuUpdateByRequest(void) {
 				switch(pInformation->Current_AlternateSetting)
 				{
 					/*
-					Roger Clark. removed upload to RAM option
+					Roger Clark. removed upload to RAM option */
 					case 0:
 					    userAppAddr = USER_CODE_RAM;
 						userUploadType = DFU_UPLOAD_RAM;
 						break;
-						*/
+
 					case 1:
 					    userAppAddr = USER_CODE_FLASH0X8005000;
 						userUploadType = DFU_UPLOAD_FLASH_0X8005000;
@@ -130,11 +130,11 @@ bool dfuUpdateByRequest(void) {
             userFirmwareLen = uploadBlockLen * pInformation->USBwValue;
 			switch(pInformation->Current_AlternateSetting)
 			{
-			/*
+			
 				case 0:
 					userAppAddr = USER_CODE_RAM;
 					userAppEnd = RAM_END;
-					*/
+					
 				case 1:
 				    userAppAddr = USER_CODE_FLASH0X8005000;
 					userAppEnd = FLASH_END;
@@ -169,7 +169,7 @@ bool dfuUpdateByRequest(void) {
         if (pInformation->USBbRequest == DFU_GETSTATUS) {
             /* todo, add routine to wait for last block write to finish */
 			
-			/* Roger Clark. Commented out code associated with RAM upload
+			/* Roger Clark. Commented out code associated with RAM upload */
 			
             if (userUploadType == DFU_UPLOAD_RAM) 
 			{
@@ -193,7 +193,7 @@ bool dfuUpdateByRequest(void) {
 
             } 
 			else 
-			*/
+			
 			{
                 dfuAppStatus.bState = dfuDNLOAD_IDLE;
                 dfuCopyBufferToExec();
@@ -402,7 +402,7 @@ void dfuCopyBufferToExec() {
     u32 *userSpace;
 	
 /* Roger Clark. 
-	Commented out code associated with upload to RAM
+	Commented out code associated with upload to RAM*/
 
     if (userUploadType == DFU_UPLOAD_RAM) 
 	{
@@ -414,7 +414,7 @@ void dfuCopyBufferToExec() {
         }
     } 
 	else 
-*/
+
 	{
 		if (userUploadType == DFU_UPLOAD_FLASH_0X8005000)
 		{
@@ -455,7 +455,7 @@ void dfuFinishUpload() {
 		__asm("nop");
 
 /* Roger Clark. 
-	Commented out code associated with upload to RAM	
+	Commented out code associated with upload to RAM	*/
 
 		if (userUploadType==DFU_UPLOAD_RAM) 
 		{
@@ -466,10 +466,7 @@ void dfuFinishUpload() {
                 strobePin(LED_BANK, LED, 2, 0x500);
                 code_copy_lock = END;
             }
-        }
-		
-*/		
-		
+        }		
         /* otherwise do nothing, dfu state machine resets itself */
     }
 }

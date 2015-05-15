@@ -128,7 +128,7 @@ void setupFLASH() {
 bool checkUserCode(u32 usrAddr) {
     u32 sp = *(vu32 *) usrAddr;
 
-    if ((sp & 0x2FFE0000) == 0x20000000) {
+    if ((sp & 0xFFFE0FFF) == 0x20000000) {
         return (TRUE);
     } else {
         return (FALSE);
