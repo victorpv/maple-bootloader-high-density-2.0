@@ -108,9 +108,9 @@ void setupBUTTON (void) {
   /* enable button pin */
   pRCC->APB2ENR |= RCC_APB2ENR_BUT;
 
-  /* Setup button pin as floating input */
-  SET_REG(BUT_BANK_CR,(GET_REG(BUT_BANK_CR) & BUT_CR_MASK) | BUT_CR_OUTPUT);
-  setPin(BUTTON_BANK, BUTTON);
+  /* Setup button pin as input pull up*/
+  SET_REG(BUT_BANK_CR,(GET_REG(BUT_BANK_CR) & BUT_CR_MASK) | BUT_CR_INPUT);
+  resetPin(BUTTON_BANK, BUTTON);
 }
 
 void setupFLASH() {
