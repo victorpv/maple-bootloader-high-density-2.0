@@ -135,6 +135,16 @@ bool checkUserCode(u32 usrAddr) {
     }
 }
 
+bool checkUserCodeRam(u32 usrAddr) {
+    u32 sp = *(vu32 *) usrAddr;
+
+    if ((sp & 0xFFFF0000) == 0x20000000) {
+        return (TRUE);
+    } else {
+        return (FALSE);
+    }
+}
+
 void jumpToUser(u32 usrAddr) {
     typedef void (*funcPtr)(void);
 

@@ -47,7 +47,7 @@ int main()
     strobePin(LED_BANK, LED, STARTUP_BLINKS, BLINK_FAST);
 
 	/* wait for host to upload program or halt bootloader */
-	bool no_user_jump = (!checkUserCode(USER_CODE_FLASH0X8005000) && !checkUserCode(USER_CODE_FLASH0X8002000)) || readPin(BUTTON_BANK,BUTTON);
+	bool no_user_jump = (!checkUserCode(USER_CODE_RAM) && !checkUserCode(USER_CODE_FLASH0X8005000) && !checkUserCode(USER_CODE_FLASH0X8002000)) || readPin(BUTTON_BANK,BUTTON);
 	int delay_count = 0;
 
     while ((delay_count++ < BOOTLOADER_WAIT) || no_user_jump)
@@ -65,6 +65,27 @@ int main()
 	{
 		jumpToUser(USER_CODE_RAM);
 	} 
+	
+	else if (checkUserCodeRam(USER_CODE_FLASH0X8002000+4))
+	{
+		int ptr;
+		/*
+		u32 *flashAdr = (u32 *)USER_CODE_FLASH0X8002000;
+		u32 *ramAdr = (u32 *)USER_CODE_RAM;
+		for (ptr = 0; ptr < ((RAM_END-USER_CODE_RAM)-1024)/4; ptr ++) {
+			ramAdr[ptr] = flashAdr[ptr];
+        }
+		*/
+		u32 const *flashAdr = (u32 const *)USER_CODE_FLASH0X8002000;
+		u32 *ramAdr = (u32 *)USER_CODE_RAM;
+		ptr = ((RAM_END-USER_CODE_RAM)-1024)>>2;
+		while (ptr--)
+		{
+			*ramAdr++ = *flashAdr++;
+		}
+		jumpToUser(USER_CODE_RAM);
+	}
+
 	else if (checkUserCode(USER_CODE_FLASH0X8002000)) 
 	{
 		jumpToUser(USER_CODE_FLASH0X8002000);

@@ -180,6 +180,7 @@ void setupLED      (void);
 void setupFLASH    (void);
 void setupBUTTON   (void);
 bool checkUserCode (u32 usrAddr);
+bool checkUserCodeRam (u32 usrAddr);
 void jumpToUser    (u32 usrAddr);
 
 bool flashWriteWord  (u32 addr, u32 word);

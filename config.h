@@ -39,7 +39,7 @@
 #define FLASH_PAGE_SIZE  0x800
 
 /* On the Generic RET6, LED is PD2 */
-/*
+
 #define LED_BANK         GPIOD
 #define LED              2
 #define LED_BANK_CR      GPIO_CRL(LED_BANK)
@@ -48,7 +48,7 @@
 #define RCC_APB2ENR_LED  0x00000020 /* enable PD */
 
 /* On the Generic VET6, LED is PC5 */
-#define LED_BANK         GPIOE
+/*#define LED_BANK         GPIOE
 #define LED              5
 #define LED_BANK_CR      GPIO_CRL(LED_BANK)
 #define LED_CR_MASK      0xFF0FFFFF
@@ -56,20 +56,20 @@
 #define RCC_APB2ENR_LED  0x00000040 /* enable PE */
 
 /* On the Maple RET6, BUT is PC9 */
-/*
+
 #define BUTTON_BANK      GPIOC
 #define BUTTON           9
 #define BUT_BANK_CR      GPIO_CRH(BUTTON_BANK)
 #define BUT_CR_MASK      0xFFFFFF0F
-#define BUT_CR_OUTPUT    0x00000040 //Input actually
+#define BUT_CR_INPUT     0x00000080 // Input PU/PD 
 #define RCC_APB2ENR_BUT  0x00000010 // enable PC
-*/
+
 /* On the Generic VET6, BUT is PC0 */
-#define BUTTON_BANK      GPIOC
+/*#define BUTTON_BANK      GPIOC
 #define BUTTON           0
 #define BUT_BANK_CR      GPIO_CRL(BUTTON_BANK)
 #define BUT_CR_MASK      0xFFFFFFF0
-#define BUT_CR_INPUT     0x00000008 /* Input PU/PD */
+#define BUT_CR_INPUT     0x00000008 // Input PU/PD 
 #define RCC_APB2ENR_BUT  0x00000010 /* enable PC */
 
 /* USB Disc Pin Setup.  On the Maple Generic RET6, USB_DISC is PA12 */
@@ -89,10 +89,11 @@
 #define BOOTLOADER_WAIT  12
 
 #define USER_CODE_RAM     			((u32)0x20000C00)
-#define RAM_END           			((u32)0x20005000)
+#define RAM_END           			((u32)0x20010000)
 #define USER_CODE_FLASH0X8005000   	((u32)0x08005000)
 #define USER_CODE_FLASH0X8002000	((u32)0x08002000)
 #define FLASH_END         			((u32)0x08020000)
+
 
 #define VEND_ID0 0xAF
 #define VEND_ID1 0x1E
